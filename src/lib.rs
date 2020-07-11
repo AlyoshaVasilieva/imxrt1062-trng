@@ -94,25 +94,25 @@ impl BlockRngCore for TRNGCore {
             }
             core::sync::atomic::spin_loop_hint(); // is this useful?
         }
-        results[0] = read_reg!(trng, self.trngi, ENT0, ENT);
-        results[1] = read_reg!(trng, self.trngi, ENT1, ENT);
-        results[2] = read_reg!(trng, self.trngi, ENT2, ENT);
-        results[3] = read_reg!(trng, self.trngi, ENT3, ENT);
-        results[4] = read_reg!(trng, self.trngi, ENT4, ENT);
-        results[5] = read_reg!(trng, self.trngi, ENT5, ENT);
-        results[6] = read_reg!(trng, self.trngi, ENT6, ENT);
-        results[7] = read_reg!(trng, self.trngi, ENT7, ENT);
-        results[8] = read_reg!(trng, self.trngi, ENT8, ENT);
-        results[9] = read_reg!(trng, self.trngi, ENT9, ENT);
-        results[10] = read_reg!(trng, self.trngi, ENT10, ENT);
-        results[11] = read_reg!(trng, self.trngi, ENT11, ENT);
-        results[12] = read_reg!(trng, self.trngi, ENT12, ENT);
-        results[13] = read_reg!(trng, self.trngi, ENT13, ENT);
-        results[14] = read_reg!(trng, self.trngi, ENT14, ENT);
-        results[15] = read_reg!(trng, self.trngi, ENT15, ENT);
+        results[0] = read_reg!(trng, self.trngi, ENT0);
+        results[1] = read_reg!(trng, self.trngi, ENT1);
+        results[2] = read_reg!(trng, self.trngi, ENT2);
+        results[3] = read_reg!(trng, self.trngi, ENT3);
+        results[4] = read_reg!(trng, self.trngi, ENT4);
+        results[5] = read_reg!(trng, self.trngi, ENT5);
+        results[6] = read_reg!(trng, self.trngi, ENT6);
+        results[7] = read_reg!(trng, self.trngi, ENT7);
+        results[8] = read_reg!(trng, self.trngi, ENT8);
+        results[9] = read_reg!(trng, self.trngi, ENT9);
+        results[10] = read_reg!(trng, self.trngi, ENT10);
+        results[11] = read_reg!(trng, self.trngi, ENT11);
+        results[12] = read_reg!(trng, self.trngi, ENT12);
+        results[13] = read_reg!(trng, self.trngi, ENT13);
+        results[14] = read_reg!(trng, self.trngi, ENT14);
+        results[15] = read_reg!(trng, self.trngi, ENT15);
         // TODO: learn to write macros, I bet one can do this
         // can also easily be done using unsafe
-        read_reg!(trng, self.trngi, ENT0, ENT);
+        read_reg!(trng, self.trngi, ENT0);
         // SDK (fsl_trng.c):
         //     Dummy read. Defect workaround.
         //     TRNG could not clear ENT_VAL flag automatically, application
@@ -173,7 +173,7 @@ pub fn init(ccmi: &ccm::Instance, trngi: trng::Instance, mode: SampleMode) -> TR
     // back in TRNG_Init:
     write_reg!(trng, trngi, MCTL, SAMP_MODE: mode as u32); // exit program mode, set sample mode
 
-    read_reg!(trng, trngi, ENT15, ENT);
+    read_reg!(trng, trngi, ENT15);
     // reading ENT15 wipes all entropy generated and begins new generation; this is a reset.
     // doesn't *seem* to be necessary here (maybe only if users will Init/Deinit/Init?)
     // but the SDK does it unconditionally after setting run mode, so reproduced here
