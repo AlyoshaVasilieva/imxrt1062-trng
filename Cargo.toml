@@ -1,0 +1,9 @@
+[package]
+name = "imxrt1062-trng"
+version = "0.1.0"
+authors = ["Malloc Voidstar <1284317+AlyoshaVasilieva@users.noreply.github.com>"]
+edition = "2018"
+
+[dependencies]
+imxrt-ral = { version = "0.3", features = ["imxrt1062"] }
+rand_core = "0.5"
